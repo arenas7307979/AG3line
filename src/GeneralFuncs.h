@@ -1,7 +1,7 @@
 /** Label for pixels with undefined gradient. */
 #include<math.h>
 #include<iostream>
-#include <io.h>
+#include <sys/uio.h>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -12,7 +12,9 @@
 #define PI_8 0.3927
 #define PI_16 0.1963495408
 #define PI_32 0.0981747704246
+#ifndef M_PI
 #define M_PI   3.1415926535
+#endif
 #define PI_2 1.570796
 #define M_2__PI  6.28318530718
 /** 3/2 pi */
@@ -22,7 +24,7 @@
 #define GRADE_2 27.0400
 #define SQRT_MAGIC_F 0x5f3759df
 double angle_diff(double a, double b);
-int round(float number);
+//int round(float number);
 float mean(float*value,int ed);
 void sdeviation(float*value,int ed,float *std,float *m);
 void getAllFiles(std::string path, std::vector<std::string>&files, std::string fileType);

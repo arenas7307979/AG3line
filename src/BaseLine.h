@@ -1,7 +1,7 @@
 #pragma once
 #include<math.h>
 #include<iostream>
-#include<opencv.hpp>
+#include<opencv2/opencv.hpp>
 
 using namespace::cv;
 using namespace::std;
@@ -33,7 +33,7 @@ class BaseLine
 	void updateLinePrams(int x1,int y1);
 	void getLine(Point3i*reg);
 	float pt_line_dis(float xx,float yy);
-	void BaseLine::getlength();
+	void getlength();
 	void region2line( Point3i *reg, int ed1,int ed2,int ed3,int ed4,
                          double prec);
 	void newValidationPixel(int i);
@@ -41,7 +41,7 @@ class BaseLine
 	bool lengthSatisfy();
 
 	float getAnchorThreshold();
-	void BaseLine::newValidationPixel2(int i);
+	void newValidationPixel2(int i);
 	float withinLength(float x, float y);
 	void reverseDir(int cx,int cy);
 };

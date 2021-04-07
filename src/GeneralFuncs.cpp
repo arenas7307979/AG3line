@@ -1,5 +1,6 @@
 #include"GeneralFuncs.h"
 #include"BaseLine.h"
+#include <dirent.h>
 
  float  sqrt2(const float x)
 {
@@ -24,29 +25,47 @@ double angle_diff(double a, double b)
     return a;
 }
 
-int round(float number)
+//int round(float number)
+//{
+//    return (number > 0.0) ? (number + 0.5) : (number - 0.5);
+//}
+
+inline bool ends_with(std::string const & value, std::string const & ending)
 {
-    return (number > 0.0) ? (number + 0.5) : (number - 0.5); 
+  if (ending.size() > value.size()) return false;
+  return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
 }
-
-
  
 void getAllFiles(std::string path, std::vector<std::string>&files, std::string fileType){
  
-    //ÎÄ¼þ¾ä±ú
-    long hFile = 0;
-    struct _finddata_t  fileInfo;
-    std::string p;
- 
-    if ((hFile = _findfirst(p.assign(path).append("\\*" + fileType).c_str(), &fileInfo)) != -1){
-        do{
-            files.push_back(p.assign(path).append("\\").append(fileInfo.name));
-        } while (_findnext(hFile, &fileInfo) == 0);
- 
-        _findclose(hFile);//¹Ø±Õ¾ä±ú
- 
+//    long hFile = 0;
+//    struct _finddata_t  fileInfo;
+//    std::string p;
+//
+//    if ((hFile = _findfirst(p.assign(path).append("\\*" + fileType).c_str(), &fileInfo)) != -1){
+//        do{
+//            files.push_back(p.assign(path).append("\\").append(fileInfo.name));
+//        } while (_findnext(hFile, &fileInfo) == 0);
+//
+//        _findclose(hFile);
+//    }
+
+    ////////////////////////////////////////////////
+  std::string p;
+  DIR *dir;
+  struct dirent *ent;
+  if ((dir = opendir(path.c_str())) != nullptr) {
+    // For each file in the folder apply the function
+    while ((ent = readdir(dir)) != nullptr) {
+      if (ends_with(ent->d_name, fileType)) {
+        files.push_back(p.assign(path).append("\\").append(ent->d_name));
+      }
     }
- 
+
+    closedir(dir);
+  } else {
+    std::cerr << "Error opening directory \"" << path << "\"";
+  }
 }
 void getPixels4Dir(float theta,float* xxs,float* yys)
 {

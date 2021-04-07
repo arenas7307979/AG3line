@@ -1,5 +1,3 @@
-
-
 #include <time.h>
 #include <queue>
 #include <vector>
@@ -960,8 +958,8 @@ int main1(string picstr,string fname)
 	imc=imc*0+255;
 	clock_t start, finish;
 	start = clock();
-	//char* picstr="G:\\线提取\\线段提取2018\\pic\\yourk21.jpg";
-	//char* picstr="G:\\线提取\\线段提取2018\\pic\\001a.png";
+	//char* picstr="G:\\pic\\yourk21.jpg";
+	//char* picstr="G:\\pic\\001a.png";
 	//char* picstr="im1.jpg";
 	float gradt=5.2;//gradient threshold
 	int initialSize=3;//the threshold of the initial short seg
@@ -1341,16 +1339,24 @@ int ag3line(Mat& im,vector<lineag>& lines,bool control)
 	return 0;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-	
-		bool control=true;//81550_150560154_042_20160205045406_rgb.jpg
-		string imgstr="014.png";
+	    if(argc <= 1){
+	      std::cerr << "Error: The usage is: \n\tAG3line <image_to_process.png>" << std::endl;
+          return -1;
+	    }
+
+		bool control=false;//81550_150560154_042_20160205045406_rgb.jpg
+		string imgstr= argv[1];
+		std::cout << "Reading image \"" << imgstr << "\"" << std::endl;
 		cv::Mat img = cv::imread(imgstr,0);
 		cv::Mat imc = cv::imread(imgstr,0);
 		Mat im;
 
-
+        if(img.empty()){
+          std::cerr << "Cannot readi image \"" << imgstr << "\"" << std::endl;
+          return -2;
+        }
 
 
 		vector<lineag> lines;
